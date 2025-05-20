@@ -86,6 +86,6 @@ http://IP_PUBLICA_EC2:5000
 
 ## 🖼️ Evidencia del despliegue
 ### Capturas
-![Paginaweb](URL-de-la-imagen)
-![Instanciadbv1](URL-de-la-imagen)
-![Instanciadbv2](URL-de-la-imagen)
+![Paginaweb](https://github.com/AyarzaPiero/VetTrack/blob/main/assets/paginafuncionando.png)
+![Instanciadbv1](https://github.com/AyarzaPiero/VetTrack/blob/main/assets/instanciapython.png)
+![Instanciadbv2]([URL-de-la-imagen](https://github.com/AyarzaPiero/VetTrack/blob/main/assets/paginafuncionando.png))
