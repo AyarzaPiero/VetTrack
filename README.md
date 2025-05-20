@@ -18,14 +18,7 @@ VetTrack es una aplicación web desarrollada en Python con Flask, diseñada para
 
 **Modelo de despliegue:**
 
-      +-------------------+         HTTPS/SSH        +---------------------+
-      |  EC2 (Flask App)  |  <-------------------->  |  EC2 (MySQL Server) |
-      |   Puerto 5000     |                         |     Puerto 3306     |
-      +-------------------+                         +---------------------+
-                |
-                v
-     Acceso vía IP pública (Navegador)
-
+![Instanciadbv1](https://github.com/AyarzaPiero/VetTrack/blob/main/assets/diagrama.png)
 
 **Capas del sistema:**
 - 🖥️ Presentación: HTML con Jinja2 (formularios y listas)
