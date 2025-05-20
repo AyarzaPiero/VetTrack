@@ -88,4 +88,4 @@ http://IP_PUBLICA_EC2:5000
 ### Capturas
 ![Paginaweb](https://github.com/AyarzaPiero/VetTrack/blob/main/assets/paginafuncionando.png)
 ![Instanciadbv1](https://github.com/AyarzaPiero/VetTrack/blob/main/assets/instanciapython.png)
-![Instanciadbv1](https://github.com/AyarzaPiero/VetTrack/blob/main/assets/paginafuncionando.png)
+![Instanciadbv1](https://github.com/AyarzaPiero/VetTrack/blob/main/assets/instanciabasededatos.png)
