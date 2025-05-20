@@ -86,4 +86,6 @@ http://IP_PUBLICA_EC2:5000
 
 ## 🖼️ Evidencia del despliegue
 ### Capturas
-![Descripción de la imagen](URL-de-la-imagen)
+![Paginaweb](URL-de-la-imagen)
+![Instanciadbv1](URL-de-la-imagen)
+![Instanciadbv2](URL-de-la-imagen)
