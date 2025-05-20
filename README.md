@@ -70,12 +70,21 @@ http://IP_PUBLICA_EC2:5000
 ## 📋 Explicación de la arquitectura en 3 capas
 
 - **Capa de presentación:** templates/ y routes/pet_routes.py, donde se definen las vistas HTML y navegación.
-- Capa de aplicación: services/pet_service.py, que gestiona la lógica de negocio.
-- Capa de datos: models/pet_model.py y db.py, que definen los modelos y conexión a MySQL.
+- **Capa de aplicación:** services/pet_service.py, que gestiona la lógica de negocio.
+- **Capa de datos:** models/pet_model.py y db.py, que definen los modelos y conexión a MySQL.
 
 ## Seguridad
 
-- Se uso 
+- Se uso **Fail2Ban** para bloquea IPs que realizan comportamientos sospechosos (como intentos fallidos de login repetidos).
+
+```bash
+[sshd]
+enabled = true
+port    = ssh
+logpath = %(sshd_log)s
+maxretry = 5
+bantime = 3600
+```
 
 ## 🖼️ Evidencia del despliegue
 ### Capturas
