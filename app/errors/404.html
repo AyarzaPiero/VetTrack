@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Página no encontrada{% endblock %}
+
+{% block hero %}
+<div class="hero-section">
+    <div class="container">
+        <h1><i class="fas fa-exclamation-triangle me-2"></i>Error 404</h1>
+        <p class="lead">Página no encontrada</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 text-center">
+        <div class="card shadow">
+            <div class="card-body p-5">
+                <div class="display-1 text-danger">
+                    <i class="fas fa-paw"></i> 404
+                </div>
+                <h2 class="my-4">¡Ups! No pudimos encontrar esta página</h2>
+                <p class="lead mb-4">Parece que la página que estás buscando no existe o ha sido movida.</p>
+                
+                <div class="mt-5">
+                    <a href="{{ url_for('pet_bp.index') }}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-home me-1"></i>Volver al Inicio
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

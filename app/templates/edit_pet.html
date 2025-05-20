@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block title %}Editar {{ pet.name }}{% endblock %}
+
+{% block hero %}
+<div class="hero-section">
+    <div class="container">
+        <h1><i class="fas fa-edit me-2"></i>Editar Mascota</h1>
+        <p class="lead">Actualice la información de {{ pet.name }}</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h3 class="card-title mb-0"><i class="fas fa-paw me-2"></i>Formulario de Edición</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" class="needs-validation" novalidate>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="name" class="form-label"><i class="fas fa-tag me-1"></i>Nombre de la Mascota*</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ pet.name }}" required>
+                            <div class="invalid-feedback">
+                                Por favor ingrese el nombre de la mascota.
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="owner" class="form-label"><i class="fas fa-user me-1"></i>Nombre del Dueño*</label>
+                            <input type="text" class="form-control" id="owner" name="owner" value="{{ pet.owner }}" required>
+                            <div class="invalid-feedback">
+                                Por favor ingrese el nombre del dueño.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="species" class="form-label"><i class="fas fa-info-circle me-1"></i>Especie</label>
+                            <select class="form-select" id="species" name="species">
+                                <option value="">Seleccionar...</option>
+                                <option value="Perro" {% if pet.species == 'Perro' %}selected{% endif %}>Perro</option>
+                                <option value="Gato" {% if pet.species == 'Gato' %}selected{% endif %}>Gato</option>
+                                <option value="Ave" {% if pet.species == 'Ave' %}selected{% endif %}>Ave</option>
+                                <option value="Reptil" {% if pet.species == 'Reptil' %}selected{% endif %}>Reptil</option>
+                                <option value="Otro" {% if pet.species == 'Otro' %}selected{% endif %}>Otro</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="breed" class="form-label"><i class="fas fa-dog me-1"></i>Raza</label>
+                            <input type="text" class="form-control" id="breed" name="breed" value="{{ pet.breed or '' }}">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="age" class="form-label"><i class="fas fa-birthday-cake me-1"></i>Edad (años)</label>
+                            <input type="number" class="form-control" id="age" name="age" min="0" step="0.1" value="{{ pet.age or '' }}">
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="gender" class="form-label"><i class="fas fa-venus-mars me-1"></i>Género</label>
+                            <select class="form-select" id="gender" name="gender">
+                                <option value="">Seleccionar...</option>
+                                <option value="Macho" {% if pet.gender == 'Macho' %}selected{% endif %}>Macho</option>
+                                <option value="Hembra" {% if pet.gender == 'Hembra' %}selected{% endif %}>Hembra</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="color" class="form-label"><i class="fas fa-palette me-1"></i>Color</label>
+                            <input type="text" class="form-control" id="color" name="color" value="{{ pet.color or '' }}">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="notes" class="form-label"><i class="fas fa-sticky-note me-1"></i>Notas Adicionales</label>
+                        <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Información adicional sobre la mascota...">{{ pet.notes or '' }}</textarea>
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="1" id="vaccinated" name="vaccinated" {% if pet.vaccinated %}checked{% endif %}>
+                            <label class="form-check-label" for="vaccinated">
+                                <i class="fas fa-syringe me-1"></i>Vacunado
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{{ url_for('pet_bp.pet_details', pet_id=pet.id) }}" class="btn btn-outline-secondary me-md-2">
+                            <i class="fas fa-times me-1"></i>Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-1"></i>Guardar Cambios
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+{% endblock %}

@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+
+{% block title %}{{ pet.name }} - Detalles{% endblock %}
+
+{% block hero %}
+<div class="hero-section">
+    <div class="container">
+        <h1><i class="fas fa-paw me-2"></i>{{ pet.name }}</h1>
+        <p class="lead">Información detallada de la mascota</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card shadow mb-4">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <h3 class="mb-0"><i class="fas fa-info-circle me-2"></i>Detalles de la Mascota</h3>
+                <div>
+                    <a href="{{ url_for('pet_bp.edit_pet', pet_id=pet.id) }}" class="btn btn-light btn-sm">
+                        <i class="fas fa-edit me-1"></i>Editar
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5><i class="fas fa-tag me-2"></i>Información Básica</h5>
+                        <hr>
+                        <p><strong>Nombre:</strong> {{ pet.name }}</p>
+                        <p><strong>Dueño:</strong> {{ pet.owner }}</p>
+                        <p><strong>Especie:</strong> {{ pet.species if pet.species else 'No especificado' }}</p>
+                        <p><strong>Raza:</strong> {{ pet.breed if pet.breed else 'No especificada' }}</p>
+                        <p><strong>Edad:</strong> {{ pet.age|round(1) if pet.age else 'No especificada' }} años</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><i class="fas fa-clipboard-list me-2"></i>Características</h5>
+                        <hr>
+                        <p><strong>Género:</strong> {{ pet.gender if pet.gender else 'No especificado' }}</p>
+                        <p><strong>Color:</strong> {{ pet.color if pet.color else 'No especificado' }}</p>
+                        <p><strong>Vacunado:</strong> 
+                            {% if pet.vaccinated %}
+                                <span class="badge bg-success"><i class="fas fa-check me-1"></i>Sí</span>
+                            {% else %}
+                                <span class="badge bg-danger"><i class="fas fa-times me-1"></i>No</span>
+                            {% endif %}
+                        </p>
+                        <p><strong>Fecha de registro:</strong> {{ pet.created_at.strftime('%d/%m/%Y %H:%M') }}</p>
+                        <p><strong>Última actualización:</strong> {{ pet.updated_at.strftime('%d/%m/%Y %H:%M') }}</p>
+                    </div>
+                </div>
+                
+                {% if pet.notes %}
+                <div class="mt-4">
+                    <h5><i class="fas fa-sticky-note me-2"></i>Notas Adicionales</h5>
+                    <hr>
+                    <div class="p-3 bg-light rounded">
+                        {{ pet.notes }}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card shadow mb-4">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0"><i class="fas fa-cog me-2"></i>Acciones</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('pet_bp.edit_pet', pet_id=pet.id) }}" class="btn btn-primary">
+                        <i class="fas fa-edit me-1"></i>Editar Información
+                    </a>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                        <i class="fas fa-trash me-1"></i>Eliminar Mascota
+                    </button>
+                    <a href="{{ url_for('pet_bp.index') }}" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-1"></i>Volver al Listado
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>Estado</h5>
+            </div>
+            <div class="card-body">
+                <div class="text-center mb-4">
+                    <div class="display-4">
+                        {% if pet.vaccinated %}
+                        <i class="fas fa-shield-alt text-success"></i>
+                        {% else %}
+                        <i class="fas fa-exclamation-triangle text-warning"></i>
+                        {% endif %}
+                    </div>
+                    <h5 class="mt-2">
+                        {% if pet.vaccinated %}
+                        Mascota protegida
+                        {% else %}
+                        Pendiente de vacunación
+                        {% endif %}
+                    </h5>
+                </div>
+                
+                <hr>
+                
+                <p><strong>ID de registro:</strong> #{{ pet.id }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de confirmación de eliminación -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="deleteModalLabel"><i class="fas fa-exclamation-triangle me-2"></i>Confirmar Eliminación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>¿Está seguro que desea eliminar a <strong>{{ pet.name }}</strong>?</p>
+                <p class="text-danger"><strong>Advertencia:</strong> Esta acción no se puede deshacer.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <form action="{{ url_for('pet_bp.delete_pet_route', pet_id=pet.id) }}" method="POST">
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

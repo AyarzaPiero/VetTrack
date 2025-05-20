@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}Mascotas Registradas{% endblock %}
+
+{% block hero %}
+<div class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1><i class="fas fa-paw me-2"></i>Bienvenido a VetTrack</h1>
+                <p class="lead">Sistema de gestión veterinaria para el seguimiento de mascotas.</p>
+            </div>
+            <div class="col-md-4 text-md-end">
+                <a href="{{ url_for('pet_bp.register') }}" class="btn btn-light btn-lg">
+                    <i class="fas fa-plus-circle me-1"></i>Nueva Mascota
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2><i class="fas fa-list me-2"></i>Mascotas Registradas</h2>
+            <div class="input-group w-50">
+                <span class="input-group-text"><i class="fas fa-search"></i></span>
+                <input type="text" id="searchInput" class="form-control" placeholder="Buscar mascota...">
+            </div>
+        </div>
+        <hr>
+    </div>
+</div>
+
+{% if pets %}
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="petsContainer">
+        {% for pet in pets %}
+            <div class="col pet-card">
+                <div class="card h-100">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">
+                            <i class="fas fa-paw me-2"></i>{{ pet.name }}
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text"><strong><i class="fas fa-user me-2"></i>Dueño:</strong> {{ pet.owner }}</p>
+                        {% if pet.species %}
+                            <p class="card-text"><strong><i class="fas fa-info-circle me-2"></i>Especie:</strong> {{ pet.species }}</p>
+                        {% endif %}
+                        {% if pet.breed %}
+                            <p class="card-text"><strong><i class="fas fa-dog me-2"></i>Raza:</strong> {{ pet.breed }}</p>
+                        {% endif %}
+                        {% if pet.age %}
+                            <p class="card-text"><strong><i class="fas fa-birthday-cake me-2"></i>Edad:</strong> {{ pet.age }} años</p>
+                        {% endif %}
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ url_for('pet_bp.pet_details', pet_id=pet.id) }}" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-eye me-1"></i>Ver Detalles
+                            </a>
+                            <a href="{{ url_for('pet_bp.edit_pet', pet_id=pet.id) }}" class="btn btn-sm btn-outline-secondary">
+                                <i class="fas fa-edit me-1"></i>Editar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="alert alert-info">
+        <i class="fas fa-info-circle me-2"></i>No hay mascotas registradas en el sistema.
+    </div>
+    <div class="text-center mt-4">
+        <a href="{{ url_for('pet_bp.register') }}" class="btn btn-primary btn-lg">
+            <i class="fas fa-plus-circle me-1"></i>Registrar Primera Mascota
+        </a>
+    </div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+        const petsContainer = document.getElementById('petsContainer');
+        const petCards = document.querySelectorAll('.pet-card');
+        
+        searchInput.addEventListener('keyup', function() {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            petCards.forEach(function(card) {
+                const petName = card.querySelector('.card-title').textContent.toLowerCase();
+                const ownerName = card.querySelector('.card-text').textContent.toLowerCase();
+                
+                if (petName.includes(searchTerm) || ownerName.includes(searchTerm)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}
