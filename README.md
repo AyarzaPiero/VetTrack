@@ -51,7 +51,7 @@ sudo apt update && sudo apt install python3-pip python3-venv git -y
 
 3. **Clonar el proyecto:**
 ```bash
-git clone https://github.com/tu_usuario/vettrack.git
+git clone https://github.com/AyarzaPiero/vettrack
 cd vettrack
 python3 -m venv venv
 source venv/bin/activate
